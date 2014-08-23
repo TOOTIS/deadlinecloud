@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   
   resources :groups do 
-    resources :deadlines, :users
+    resources :users
   end
 
   resources :users do
-    resources :groups, :deadlines
+    resources :groups
   end
 
   resources :deadlines
