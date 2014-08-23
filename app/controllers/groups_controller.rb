@@ -5,6 +5,9 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.all
+    respond_to do |format|
+      format.json {render @groups.to_json(:only => [:id,:name],:methods => :subscribers_count)}
+    end
   end
 
   # GET /groups/1
@@ -15,10 +18,6 @@ class GroupsController < ApplicationController
   # GET /groups/new
   def new
     @group = Group.new
-  end
-
-  # GET /groups/1/edit
-  def edit
   end
 
   # POST /groups
@@ -32,7 +31,7 @@ class GroupsController < ApplicationController
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        format.json { render json:  {{errors: @group.errors}, status: :unprocessable_entity} }
       end
     end
   end
